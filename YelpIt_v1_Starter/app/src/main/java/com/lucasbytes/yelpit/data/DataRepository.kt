@@ -12,7 +12,7 @@ object DataRepository {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.twitch.tv/helix/")
+            .baseUrl("https://api.twitch.tv/helix/top/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         twitchApi = retrofit.create(TwitchApi::class.java)

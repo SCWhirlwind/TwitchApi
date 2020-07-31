@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface TwitchApi {
 
-    @GET("https://api.twitch.tv/kraken/games/top")
+    @GET("https://api.twitch.tv/helix/top")
     @Headers("Authorization: Bearer ijbcun0fwi6zz3hsx8xkf3wzo8ax10")
     fun getGameResult(
         @Query("limit") limit: Int = 10,
