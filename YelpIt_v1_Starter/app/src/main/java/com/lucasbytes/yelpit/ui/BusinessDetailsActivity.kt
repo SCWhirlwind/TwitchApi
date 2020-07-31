@@ -3,51 +3,41 @@ package com.lucasbytes.yelpit.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.lucasbytes.yelpit.R
+import com.lucasbytes.yelpit.data.DataAdapter
+import com.lucasbytes.yelpit.data.DataRepository
+import com.lucasbytes.yelpit.data.DataXAdapter
 import com.lucasbytes.yelpit.model.Data
+import com.lucasbytes.yelpit.model.DataX
 
 const val BUSINESS_BACKDROP = "extra_business_backdrop"
-const val BUSINESS_NAME = "extra_business_name"
-const val BUSINESS_RATING = "extra_business_rating"
-const val BUSINESS_REVIEWCOUNT = "extra_business_review_count"
-const val BUSINESS_PHONE = "extra_business_phone"
-const val BUSINESS_CITY = "extra_business_city"
-const val BUSINESS_COUNTRY = "extra_business_country"
-const val BUSINESS_STATE = "extra_business_state"
-const val BUSINESS_ADDRESS = "extra_business_address"
-const val BUSINESS_ZIPCODE = "extra_business_zipcode"
 
 class BusinessDetailsActivity : AppCompatActivity() {
+    private lateinit var dataXResults: RecyclerView
+    private lateinit var dataXAdapter: DataXAdapter
+    private lateinit var dataXResultsLayoutManager: GridLayoutManager
     private lateinit var backdrop: ImageView
-    private lateinit var name: TextView
-    private lateinit var rating: RatingBar
-    private lateinit var reviewCount: TextView
-    private lateinit var phone: TextView
-    private lateinit var city: TextView
-    private lateinit var country: TextView
-    private lateinit var state: TextView
-    private lateinit var address: TextView
-    private lateinit var zipCode: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_business_details)
 
         backdrop = findViewById(R.id.business_backdrop)
-        name = findViewById(R.id.details_business_name)
-        rating = findViewById(R.id.details_business_rating)
-        reviewCount = findViewById(R.id.details_business_review_count)
-        phone = findViewById(R.id.details_business_phone)
-        city = findViewById(R.id.details_business_city)
-        country = findViewById(R.id.details_business_country)
-        state = findViewById(R.id.details_business_state)
-        address = findViewById(R.id.details_business_address)
-        zipCode = findViewById(R.id.details_business_zipcode)
+        dataXResults = findViewById(R.id.recyclerStreamList)
+        dataXResultsLayoutManager = GridLayoutManager(this, 4)
+
+        dataXResults.layoutManager = dataXResultsLayoutManager
+        dataXAdapter = DataXAdapter(mutableListOf(), { dataX -> showDataXDetails(dataX)}, this)
+        dataXResults.adapter = dataXAdapter
 
         val extras = intent.extras
 
@@ -59,6 +49,47 @@ class BusinessDetailsActivity : AppCompatActivity() {
         }
     }
 
+    private fun showDataXDetails (dataX : DataX) {
+    }
+
+    private fun getDataXResults() {
+        DataRepository.getStreamResults(
+            ::onSuccess,
+            ::onError
+        )
+    }
+
+    private fun onSuccess(dataXs: List<DataX>) {
+        dataXAdapter.appendDataXs(dataXs)
+        attachDataXOnScrollListener()
+    }
+
+    private fun onError() {
+        Toast.makeText(this, "Check Internet", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun attachDataXOnScrollListener() {
+        dataXResults.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val totalItemCount = dataXResultsLayoutManager.itemCount
+
+                val visibleItemCount =  dataXResultsLayoutManager.findLastVisibleItemPosition() - dataXResultsLayoutManager.findFirstVisibleItemPosition()
+
+                val firstVisibleItem = dataXResultsLayoutManager.findFirstVisibleItemPosition()
+
+                if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
+                    Log.d("MainActivity:vitemCount", "${visibleItemCount}")
+                    Log.d("MainActivity:itemCount", "${totalItemCount}")
+
+                    dataXResults.removeOnScrollListener(this)
+                    getDataXResults()
+                }
+            }
+        })
+    }
+
     private fun businessDetails(extras: Bundle) {
         extras.getString(BUSINESS_BACKDROP)?.let { imageURL ->
             Glide.with(this)
@@ -67,14 +98,5 @@ class BusinessDetailsActivity : AppCompatActivity() {
                 .into(backdrop)
         }
 
-        name.text = extras.getString(BUSINESS_NAME, "")
-        rating.rating = extras.getFloat(BUSINESS_RATING, 0f)
-        reviewCount.text = extras.getString(BUSINESS_REVIEWCOUNT, "")
-        phone.text = extras.getString(BUSINESS_PHONE, "")
-        city.text = extras.getString(BUSINESS_CITY, "")
-        country.text = extras.getString(BUSINESS_COUNTRY, "")
-        state.text = extras.getString(BUSINESS_STATE, "")
-        address.text = extras.getString(BUSINESS_ADDRESS, "")
-        zipCode.text = extras.getString(BUSINESS_ZIPCODE, "")
     }
 }

@@ -3,5 +3,5 @@
     <string name="error_fetch_businesses">Check your internet connection</string>
     <string name="heading">Results in</string>
     <string name="subheading">and surrounding areas</string>
-    <string name="button_submit_search">Search</string>
+    <string name="button_submit_search">Load</string>
 </resources>

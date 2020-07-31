@@ -24,8 +24,8 @@ class DataAdapter(
     }
 
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val poster: ImageView = itemView.findViewById(R.id.imgBusinessPhoto)
-        private val dataName: TextView = itemView.findViewById((R.id.businessName))
+        private val poster: ImageView = itemView.findViewById(R.id.imgStreamPhoto)
+        private val dataName: TextView = itemView.findViewById((R.id.StreamName))
 
         fun bind(data: Data) {
             val origImageUrl :String = data.boxArtUrl

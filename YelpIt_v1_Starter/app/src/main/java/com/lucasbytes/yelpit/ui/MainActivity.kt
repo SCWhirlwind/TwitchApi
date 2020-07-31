@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lucasbytes.yelpit.R
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private lateinit var dataResults: RecyclerView
     private lateinit var dataAdapter: DataAdapter
-    private lateinit var dataResultsLayoutManager: LinearLayoutManager
+    private lateinit var dataResultsLayoutManager: GridLayoutManager
 
     private var dataResultsOffset = 1
 
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         dataResults = findViewById(R.id.recyclerBusinessesList)
-        dataResultsLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        dataResultsLayoutManager = GridLayoutManager(this, 4)
 
         dataResults.layoutManager = dataResultsLayoutManager
         dataAdapter = DataAdapter(mutableListOf(),  { data -> showDataDetails(data)}, this)
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MainActivity:itemCount", "${totalItemCount}")
 
                     dataResults.removeOnScrollListener(this)
-                    dataResultsOffset += 20
+                    dataResultsOffset += 1
                     getDataResults()
                 }
             }

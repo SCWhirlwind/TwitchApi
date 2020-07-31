@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -15,109 +16,34 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/backdrop_guideline"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/backdrop_guideline"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
+            app:layout_constraintGuide_percent="0.34" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="@+id/backdrop_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" >
+            app:layout_constraintTop_toTopOf="@+id/backdrop_guideline">
 
-            <TextView
-                android:id="@+id/details_business_name"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerStreamList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="#FFF"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
-
-                <RatingBar
-                    android:id="@+id/details_business_rating"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/YelpRatingBar"/>
-
-                <TextView
-                    android:id="@+id/details_business_review_count"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:textColor="#FFF" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/details_business_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="#FFF"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/details_business_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="#FFF"/>
-
-                    <TextView
-                        android:id="@+id/details_business_state"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:textColor="#FFF"/>
-
-                    <TextView
-                        android:id="@+id/details_business_zipcode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:textColor="#FFF"/>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/details_business_country"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="#FFF"/>
-
-                <TextView
-                    android:id="@+id/details_business_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:textColor="#FFF"/>
-            </LinearLayout>
-
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
