@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getDataResults() {
-        DataRepository.getGameResults( 10, 0,
+        DataRepository.getGameResults(
             ::onSuccess,
             ::onError
         )

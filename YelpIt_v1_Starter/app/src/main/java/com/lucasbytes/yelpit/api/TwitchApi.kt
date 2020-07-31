@@ -9,9 +9,8 @@ import retrofit2.http.Query
 interface TwitchApi {
 
     @GET("https://api.twitch.tv/helix/top")
-    @Headers("Authorization: Bearer ijbcun0fwi6zz3hsx8xkf3wzo8ax10")
+    @Headers("Client-ID: 3j1uw3eb9e1y9z6m38sl27dlgy93hi",
+            "Authorization: Bearer ijbcun0fwi6zz3hsx8xkf3wzo8ax10")
     fun getGameResult(
-        @Query("limit") limit: Int = 10,
-        @Query("offset") offset: Int = 0
     ) : Call<GetDataResponse>
 }

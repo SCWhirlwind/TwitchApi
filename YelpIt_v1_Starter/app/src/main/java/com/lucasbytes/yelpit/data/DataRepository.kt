@@ -12,19 +12,17 @@ object DataRepository {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.twitch.tv/helix/top/")
+            .baseUrl("https://api.twitch.tv/helix/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         twitchApi = retrofit.create(TwitchApi::class.java)
     }
 
     fun getGameResults(
-        limit: Int = 10,
-        offset: Int = 0,
         onSuccess: (gameResults: List<Data>) -> Unit,
         onError: () -> Unit
     ) {
-        twitchApi.getGameResult(limit = limit, offset = offset)
+        twitchApi.getGameResult()
             .enqueue(object: Callback<GetDataResponse> {
                 override fun onFailure(call: Call<GetDataResponse>, t: Throwable) {
                     Log.d("GameRepository", t.message.toString())
