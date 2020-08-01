@@ -28,7 +28,7 @@ class DataAdapter(
         private val dataName: TextView = itemView.findViewById((R.id.GameName))
 
         fun bind(data: Data) {
-            val origImageUrl :String = data.boxArtUrl
+            val origImageUrl :String = data.boxArtUrl.replace("{height}", "125").replace("{width}", "125")
             val scaledImageUrl :String = origImageUrl.replace("o.jpg", "l.jpg")
 
             Glide.with(itemView)

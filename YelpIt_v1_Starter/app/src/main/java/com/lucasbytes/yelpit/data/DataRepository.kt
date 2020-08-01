@@ -2,6 +2,7 @@ package com.lucasbytes.yelpit.data
 
 import android.util.Log
 import com.lucasbytes.yelpit.api.GetDataResponse
+import com.lucasbytes.yelpit.api.GetDataXResponse
 import com.lucasbytes.yelpit.api.TwitchApi
 import com.lucasbytes.yelpit.model.Data
 import com.lucasbytes.yelpit.model.DataX
@@ -58,15 +59,15 @@ object DataRepository {
         onError: () -> Unit
     ) {
         twitchApi.getStreamResult(game_id = game_id)
-            .enqueue(object: Callback<GetDataResponse> {
-                override fun onFailure(call: Call<GetDataResponse>, t: Throwable) {
-                    Log.d("DataRepository", t.message.toString())
+            .enqueue(object: Callback<GetDataXResponse> {
+                override fun onFailure(call: Call<GetDataXResponse>, t: Throwable) {
+                    Log.d("DataXRepository", t.message.toString())
                     onError.invoke()
                 }
 
                 override fun onResponse(
-                    call: Call<GetDataResponse>,
-                    response: Response<GetDataResponse>
+                    call: Call<GetDataXResponse>,
+                    response: Response<GetDataXResponse>
                 ) {
                     if(response.isSuccessful)
                     {
@@ -74,11 +75,11 @@ object DataRepository {
 
                         if (responseBody != null)
                         {
-                            onSuccess.invoke(responseBody.dataX)
+                            onSuccess.invoke(responseBody.data)
                         }
                         else
                         {
-                            Log.d("DataRepository", "Response was successful, but no body")
+                            Log.d("DataXRepository", "Response was successful, but no body")
                             onError.invoke()
                         }
                     }

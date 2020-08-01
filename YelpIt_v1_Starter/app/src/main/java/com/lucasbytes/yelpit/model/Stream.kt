@@ -7,5 +7,5 @@ data class Stream(
     @SerializedName("data")
     val `data`: List<DataX>,
     @SerializedName("pagination")
-    val pagination: PaginationX
+    val pagination: Pagination
 )

@@ -18,6 +18,6 @@ interface TwitchApi {
     @Headers("Client-ID: 3j1uw3eb9e1y9z6m38sl27dlgy93hi",
         "Authorization: Bearer ijbcun0fwi6zz3hsx8xkf3wzo8ax10")
     fun getStreamResult(
-        @Query("game_id") game_id: String
-    ) : Call<GetDataResponse>
+        @Query("game_Id") game_id: String
+    ) : Call<GetDataXResponse>
 }

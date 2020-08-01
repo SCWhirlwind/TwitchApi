@@ -22,7 +22,7 @@ class BusinessDetailsActivity : AppCompatActivity() {
     private lateinit var dataXAdapter: DataXAdapter
     private lateinit var dataXResultsLayoutManager: GridLayoutManager
     private lateinit var backdrop: ImageView
-    private lateinit var gameId: String
+    private lateinit var game_Id: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class BusinessDetailsActivity : AppCompatActivity() {
 
     private fun getDataXResults() {
         DataRepository.getStreamResults(
-            gameId,
+            game_Id,
             ::onSuccess,
             ::onError
         )
@@ -88,7 +88,7 @@ class BusinessDetailsActivity : AppCompatActivity() {
     }
 
     private fun gameId(extras: Bundle) {
-        gameId = extras.getString(DATA_GAME_ID).toString()
+        game_Id = extras.getString(DATA_GAME_ID).toString()
     }
 
     private fun businessDetails(extras: Bundle) {
