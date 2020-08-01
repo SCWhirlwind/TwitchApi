@@ -14,7 +14,6 @@ import com.lucasbytes.yelpit.model.DataX
 
 class DataXAdapter(
     private var dataXs: MutableList<DataX>,
-    private var onDataXClick: (dataX: DataX) -> Unit,
     private var context: Context
 ) : RecyclerView.Adapter<DataXAdapter.DataXViewHolder>() {
 
@@ -26,7 +25,7 @@ class DataXAdapter(
     inner class DataXViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val poster: ImageView = itemView.findViewById(R.id.imgStreamPhoto)
         private val dataXName: TextView = itemView.findViewById((R.id.StreamName))
-        private val viewerCount: TextView = itemView.findViewById((R.id.ViewCount))
+        private val viewerCount: TextView = itemView.findViewById((R.id.ViewerCount))
 
         fun bind(dataX: DataX) {
             val origImageUrl :String = dataX.thumbnailUrl
@@ -38,9 +37,6 @@ class DataXAdapter(
                 .into(poster)
             dataXName.text = dataX.userName
             viewerCount.text = dataX.viewerCount.toString()
-            itemView.setOnClickListener {
-                onDataXClick.invoke(dataX)
-            }
         }
     }
 

@@ -1,31 +1,28 @@
 package com.lucasbytes.yelpit.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.lucasbytes.yelpit.R
-import com.lucasbytes.yelpit.data.DataAdapter
 import com.lucasbytes.yelpit.data.DataRepository
 import com.lucasbytes.yelpit.data.DataXAdapter
-import com.lucasbytes.yelpit.model.Data
 import com.lucasbytes.yelpit.model.DataX
 
 const val BUSINESS_BACKDROP = "extra_business_backdrop"
+const val DATA_GAME_ID = "extra_data_game_id"
 
 class BusinessDetailsActivity : AppCompatActivity() {
     private lateinit var dataXResults: RecyclerView
     private lateinit var dataXAdapter: DataXAdapter
     private lateinit var dataXResultsLayoutManager: GridLayoutManager
     private lateinit var backdrop: ImageView
+    private lateinit var gameId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +33,24 @@ class BusinessDetailsActivity : AppCompatActivity() {
         dataXResultsLayoutManager = GridLayoutManager(this, 4)
 
         dataXResults.layoutManager = dataXResultsLayoutManager
-        dataXAdapter = DataXAdapter(mutableListOf(), { dataX -> showDataXDetails(dataX)}, this)
+        dataXAdapter = DataXAdapter(mutableListOf(), this)
         dataXResults.adapter = dataXAdapter
 
         val extras = intent.extras
 
         if(extras != null) {
             businessDetails(extras)
+            gameId(extras)
+            getDataXResults()
         }
         else {
             finish()
         }
     }
 
-    private fun showDataXDetails (dataX : DataX) {
-    }
-
     private fun getDataXResults() {
         DataRepository.getStreamResults(
+            gameId,
             ::onSuccess,
             ::onError
         )
@@ -88,6 +85,10 @@ class BusinessDetailsActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun gameId(extras: Bundle) {
+        gameId = extras.getString(DATA_GAME_ID).toString()
     }
 
     private fun businessDetails(extras: Bundle) {

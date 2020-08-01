@@ -53,10 +53,11 @@ object DataRepository {
     }
 
     fun getStreamResults(
+        game_id: String,
         onSuccess: (streamResults: List<DataX>) -> Unit,
         onError: () -> Unit
     ) {
-        twitchApi.getGameResult()
+        twitchApi.getStreamResult(game_id = game_id)
             .enqueue(object: Callback<GetDataResponse> {
                 override fun onFailure(call: Call<GetDataResponse>, t: Throwable) {
                     Log.d("DataRepository", t.message.toString())

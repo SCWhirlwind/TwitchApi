@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private fun showDataDetails (data : Data) {
         val intent = Intent(this, BusinessDetailsActivity::class.java)
         intent.putExtra("extra_business_backdrop", data.boxArtUrl)
+        intent.putExtra("extra_data_game_id", data.id)
 
 
         startActivity(intent)

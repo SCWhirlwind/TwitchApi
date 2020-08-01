@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imgStreamPhoto"
+            android:id="@+id/imgGamePhoto"
             android:layout_width="match_parent"
             android:layout_height="135dp"
             android:background="#000" />
@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/StreamName"
+                android:id="@+id/GameName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="#000"
